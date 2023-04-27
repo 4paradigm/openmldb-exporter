@@ -1,8 +1,6 @@
-FROM debian:bullseye
+FROM python:3.11-slim-bullseye
 
-RUN apt-get update && apt-get install -y python3-pip && \
-    pip3 install --no-cache-dir openmldb-exporter==0.6.0 && \
-    apt-get clean
+RUN pip install --no-cache-dir openmldb-exporter==0.6.0
 
 ENV OPENMLDB_EXPORTER_VERSION=0.6.0
 EXPOSE 8000
