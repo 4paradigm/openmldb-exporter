@@ -1,0 +1,93 @@
+version: "3.8"
+
+services:
+  grafana:
+    container_name: openmldb_grafana
+    image: grafana/grafana:9.2.15-ubuntu
+    depends_on:
+      - prometheus
+
+  prometheus:
+    container_name: openmldb_prometheus
+    image: prom/prometheus:v2.43.0
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+    depends_on:
+      - openmldb-exporter
+
+  openmldb-exporter:
+    container_name: openmldb_exporter
+    image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
+    command:
+      - "--config.zk_root=openmldb-zk:2181"
+      - "--config.zk_path=/openmldb"
+    # exporter require openmldb cluster fully started up
+    # so it may fail at very begining, set restart to always
+    # to temporarily workaround the problem
+    restart: always
+    depends_on:
+      - openmldb-ns1
+      - openmldb-ns2
+
+  openmldb-zk:
+    container_name: openmldb_zk
+    image: zookeeper:3.4.14
+
+  openmldb-ns1:
+    container_name: openmldb_ns1
+    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    command:
+      - "--role=nameserver"
+      - "--endpoint=openmldb-ns1:9527"
+      - "--zk_cluster=openmldb-zk:2181"
+      - "--zk_root_path=/openmldb"
+    depends_on:
+      - openmldb-tablet1
+      - openmldb-tablet2
+      - openmldb-tablet3
+
+  openmldb-ns2:
+    container_name: openmldb_ns2
+    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    command:
+      - "--role=nameserver"
+      - "--endpoint=openmldb-ns2:9527"
+      - "--zk_cluster=openmldb-zk:2181"
+      - "--zk_root_path=/openmldb"
+    depends_on:
+      - openmldb-tablet1
+      - openmldb-tablet2
+      - openmldb-tablet3
+
+  openmldb-tablet1:
+    container_name: openmldb_tablet1
+    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    command:
+      - "--role=tablet"
+      - "--endpoint=openmldb-tablet1:9527"
+      - "--zk_cluster=openmldb-zk:2181"
+      - "--zk_root_path=/openmldb"
+    depends_on:
+      - openmldb-zk
+
+  openmldb-tablet2:
+    container_name: openmldb_tablet2
+    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    command:
+      - "--role=tablet"
+      - "--endpoint=openmldb-tablet2:9527"
+      - "--zk_cluster=openmldb-zk:2181"
+      - "--zk_root_path=/openmldb"
+    depends_on:
+      - openmldb-zk
+
+  openmldb-tablet3:
+    container_name: openmldb_tablet3
+    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    command:
+      - "--role=tablet"
+      - "--endpoint=openmldb-tablet3:9527"
+      - "--zk_cluster=openmldb-zk:2181"
+      - "--zk_root_path=/openmldb"
+    depends_on:
+      - openmldb-zk
