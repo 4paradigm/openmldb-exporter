@@ -1,11 +1,11 @@
-FROM golang:1.20-bullseye
+FROM python:3.11-slim-bullseye
 
-WORKDIR /opt/test/
+WORKDIR /pytest-src
 
-COPY test/ ./
+COPY ./*.py pyproject.toml poetry.lock README.md ./
+COPY openmldb_exporter ./openmldb_exporter
 
-RUN go mod download && go mod verify
+RUN pip install --no-cache-dir poetry && \
+    poetry install
 
-RUN go build -v -o ./prometheus_cfg_hook cmd/prometheus_config_hook.go
-
-ENTRYPOINT [ "/opt/test/prometheus_cfg_hook" ]
+ENTRYPOINT ["poetry", "run", "pytest"]

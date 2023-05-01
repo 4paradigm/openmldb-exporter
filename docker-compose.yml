@@ -1,6 +1,22 @@
 version: "3.8"
 
 services:
+  test-client:
+    container_name: openmldb_test_client
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    restart: no
+    depends_on:
+      - sleep
+
+  sleep-for:
+    # ensure all services are up
+    image: debian:bullseye-slim
+    command:
+      - "sleep"
+      - "10"
+
   grafana:
     container_name: openmldb_grafana
     image: grafana/grafana-oss:9.5.1
@@ -24,7 +40,7 @@ services:
     container_name: openmldb_prometheus_pre_hook
     build:
       context: .
-      dockerfile: test.Dockerfile
+      dockerfile: hook.Dockerfile
     volumes:
       - ./res/:/opt/res/
     restart: no
@@ -38,14 +54,17 @@ services:
 
   openmldb-exporter:
     container_name: openmldb_exporter
-    image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
+    # image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
+    build:
+      context: .
+      dockerfile: Dockerfile
     command:
       - "--config.zk_root=openmldb-zk:2181"
       - "--config.zk_path=/openmldb"
     # exporter require openmldb cluster fully started up
     # so it may fail at very begining, set restart to always
     # to temporarily workaround the problem
-    restart: always
+    restart: on-failure
     depends_on:
       - openmldb-ns1
       - openmldb-ns2
