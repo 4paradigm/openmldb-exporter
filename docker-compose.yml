@@ -8,7 +8,7 @@ services:
       dockerfile: test.Dockerfile
     restart: no
     depends_on:
-      - sleep
+      - sleep-for
 
   sleep-for:
     # ensure all services are up
