@@ -42,10 +42,12 @@ services:
 
   openmldb-exporter:
     container_name: openmldb_exporter
-    # image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
-    build:
-      context: .
-      dockerfile: Dockerfile
+    # 0.8.0.alpha1 uses openmldb that able to resolve domain
+    image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
+    # fixme
+    # build:
+    #   context: .
+    #   dockerfile: Dockerfile
     ports:
       - 8000:8000
     command:
@@ -123,3 +125,5 @@ services:
       - "--zk_root_path=/openmldb"
     depends_on:
       - openmldb-zk
+
+
