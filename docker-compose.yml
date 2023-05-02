@@ -16,6 +16,8 @@ services:
     command:
       - "sleep"
       - "10"
+    depends_on:
+      - grafana
 
   grafana:
     container_name: openmldb_grafana
