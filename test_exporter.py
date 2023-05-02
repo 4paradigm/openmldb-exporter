@@ -12,7 +12,7 @@ def global_url():
         description="OpenMLDB exporter integration test")
     parser.add_argument("--zk_root",
                         type=str,
-                        default="openmldb-zk:2181",
+                        default="127.0.0.1:2181",
                         help="endpoint to zookeeper")
     parser.add_argument("--zk_path",
                         type=str,
@@ -20,7 +20,7 @@ def global_url():
                         help="root path in zookeeper for OpenMLDB")
     parser.add_argument("--url",
                         type=str,
-                        default="http://openmldb-exporter:8000/metrics",
+                        default="http://127.0.0.1:8000/metrics",
                         help="openmldb exporter pull url")
     args = parser.parse_args()
     zk_root = args.zk_root

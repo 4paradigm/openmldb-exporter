@@ -62,6 +62,8 @@ services:
   openmldb-zk:
     container_name: openmldb_zk
     image: zookeeper:3.4.14
+    ports:
+      - 2181:2181
 
   openmldb-ns1:
     container_name: openmldb_ns1
