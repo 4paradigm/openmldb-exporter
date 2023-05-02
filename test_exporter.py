@@ -49,12 +49,13 @@ def test_components_online(global_url):
         # all components online
         if metric.name == "openmldb_status":
             for sample in metric.samples:
-                if sample.labels["role"] == "nameserver":
-                    ns_cnt += 1
-                elif sample.labels["role"] == "tablet":
-                    tb_cnt += 1
+                if sample.value == 1.0:
+                    if sample.labels["role"] == "nameserver":
+                        ns_cnt += 1
+                    elif sample.labels["role"] == "tablet":
+                        tb_cnt += 1
 
-                assert sample.labels["status"] == "online"
+                    assert sample.labels["openmldb_status"] == "online"
 
     assert ns_cnt == 2
     assert tb_cnt == 3
