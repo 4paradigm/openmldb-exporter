@@ -1,33 +1,19 @@
 version: "3.8"
 
 services:
-  test-client:
-    container_name: openmldb_test_client
-    build:
-      context: .
-      dockerfile: test.Dockerfile
-    restart: no
-    depends_on:
-      - sleep-for
-
-  sleep-for:
-    # ensure all services are up
-    image: debian:bullseye-slim
-    command:
-      - "sleep"
-      - "10"
-    depends_on:
-      - grafana
-
   grafana:
     container_name: openmldb_grafana
     image: grafana/grafana-oss:9.5.1
+    ports:
+      - 3000:3000
     depends_on:
       - prometheus
 
   prometheus:
     container_name: openmldb_prometheus
     image: prom/prometheus:v2.43.0
+    ports:
+      - 9090:9090
     volumes:
       - ./res/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
@@ -60,6 +46,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    ports:
+      - 8000:8000
     command:
       - "--config.zk_root=openmldb-zk:2181"
       - "--config.zk_path=/openmldb"
