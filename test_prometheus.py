@@ -3,7 +3,7 @@ import requests
 import pytest
 
 
-prom_url = 'http://127.0.0.1:9090'
+prom_url = 'http://prometheus:9090'
 
 # server is healthy itself
 def test_prometheus_healthy():

@@ -24,13 +24,4 @@ jobs:
 
       - name: service up
         run: |
-          docker compose --file docker-compose.yml up -d
-
-      - name: setup poetry
-        run: |
-          pip install poetry
-
-      - name: test
-        run: |
-          poetry install
-          poetry run pytest
+          docker compose --file docker-compose.yml up -d --exit-code-from test-client
