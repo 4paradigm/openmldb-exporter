@@ -1,6 +1,15 @@
 version: "3.8"
 
 services:
+  test-client:
+    container_name: openmldb_test_client
+    build:
+      context: .
+      dockerfile: test.Dockerfile
+    restart: no
+    depends_on:
+      - grafana
+
   grafana:
     container_name: openmldb_grafana
     image: grafana/grafana-oss:9.5.1
@@ -125,5 +134,3 @@ services:
       - "--zk_root_path=/openmldb"
     depends_on:
       - openmldb-zk
-
-
