@@ -24,4 +24,8 @@ jobs:
 
       - name: service up
         run: |
-          docker compose --file docker-compose.yml up --exit-code-from test-client
+          docker compose --file docker-compose.yml up -d
+
+      - name: run tests
+        run: |
+          docker compose --file docker-compose.yml up --exit-code-from test-client test-client
