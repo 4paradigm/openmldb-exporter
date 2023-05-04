@@ -24,7 +24,7 @@ jobs:
 
       - name: service up
         run: |
-          docker compose --file docker-compose.yml up -d --wait-timeout 10
+          docker compose --file docker-compose.yml up -d --wait-timeout 5
 
       - name: run tests
         run: |
