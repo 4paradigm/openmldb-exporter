@@ -24,11 +24,11 @@ jobs:
 
       - name: service up
         run: |
-          docker compose --file docker-compose.yml up -d
+          docker compose --file docker-compose.yml up -d --wait-timeout 10
 
       - name: run tests
         run: |
-          docker compose --file docker-compose.yml up --exit-code-from testing testing
+          docker compose --file docker-compose.yml up --no-recreate --exit-code-from testing testing
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2

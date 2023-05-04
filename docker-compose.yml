@@ -14,7 +14,7 @@ services:
       - -ce
       - |
         poetry install
-        poetry run pytest --junitxml=./pytest.xml
+        poetry run pytest --junit-xml=./pytest.xml
     depends_on:
       - grafana
 
