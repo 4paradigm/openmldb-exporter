@@ -6,17 +6,17 @@ import pytest
 from prometheus_client.parser import text_string_to_metric_families
 
 def pytest_addoption(parser):
-    parser.add_argument("--zk_root",
+    parser.addoption("--zk_root",
                         type=str,
                         action="store",
                         default="openmldb-zk:2181",
                         help="endpoint to zookeeper")
-    parser.add_argument("--zk_path",
+    parser.addoption("--zk_path",
                         type=str,
                         action="store",
                         default="/openmldb",
                         help="root path in zookeeper for OpenMLDB")
-    parser.add_argument("--url",
+    parser.addoption("--url",
                         type=str,
                         action="store",
                         default="http://openmldb-exporter:8000/metrics",
