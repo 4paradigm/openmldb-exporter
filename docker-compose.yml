@@ -21,7 +21,7 @@ services:
 
   grafana:
     container_name: openmldb_grafana
-    image: grafana/grafana-oss:9.5.1
+    image: grafana/grafana-oss:8.3.11
     ports:
       - 3000
     depends_on:
