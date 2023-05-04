@@ -1,12 +1,19 @@
 version: "3.8"
 
 services:
-  test-client:
+  testing:
     container_name: openmldb_test_client
     build:
       context: .
       dockerfile: test.Dockerfile
     restart: no
+    volumes:
+      - ./:/usr/src/openmldb-exporter
+    command:
+      - poetry
+      - run
+      - pytest
+      - --junitxml=./pytest.xml
     depends_on:
       - grafana
 

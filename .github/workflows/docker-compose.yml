@@ -28,4 +28,12 @@ jobs:
 
       - name: run tests
         run: |
-          docker compose --file docker-compose.yml up --exit-code-from test-client test-client
+          docker compose --file docker-compose.yml up --exit-code-from testing testing
+
+      - name: Publish Test Results
+        uses: EnricoMi/publish-unit-test-result-action@v2
+        if: always()
+        with:
+          files: |
+            ./pytest.xml
+

@@ -1,11 +1,7 @@
 FROM python:3.11-slim-bullseye
 
-WORKDIR /pytest-src
+RUN pip install --no-cache-dir poetry
 
-COPY ./*.py pyproject.toml poetry.lock README.md ./
-COPY openmldb_exporter ./openmldb_exporter
+WORKDIR /usr/src/openmldb-exporter
 
-RUN pip install --no-cache-dir poetry && \
-    poetry install
-
-ENTRYPOINT ["poetry", "run", "pytest"]
+CMD [ "/bin/bash" ]
