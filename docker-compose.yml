@@ -35,27 +35,6 @@ services:
     volumes:
       - ./res/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
-      - prometheus-pre-hook
-
-  prometheus-pre-hook:
-    # pre hook before prometheus starts
-    # OpenMLDB's domain resolving is not complete,
-    # we should fix the entries in prometheus config that nslookup
-    # domain into ip address for {openmldb_components}, otherwise 
-    # metrics will get inconsistent labels for label=endpoint
-    container_name: openmldb_prometheus_pre_hook
-    build:
-      context: .
-      dockerfile: hook.Dockerfile
-    volumes:
-      - ./res/:/opt/res/
-    restart: no
-    command:
-      - --input
-      - /opt/res/prometheus_example.yml
-      - --output
-      - /opt/res/prometheus.yml
-    depends_on:
       - openmldb-exporter
 
   openmldb-exporter:
