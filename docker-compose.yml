@@ -10,13 +10,11 @@ services:
     volumes:
       - ./:/usr/src/openmldb-exporter
     command:
-      - poetry
-      - install
-      - "&&"
-      - poetry
-      - run
-      - pytest
-      - --junitxml=./pytest.xml
+      - bash
+      - -ce
+      - |
+        poetry install
+        poetry run pytest --junitxml=./pytest.xml
     depends_on:
       - grafana
 
