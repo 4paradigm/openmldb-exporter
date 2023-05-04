@@ -11,6 +11,9 @@ services:
       - ./:/usr/src/openmldb-exporter
     command:
       - poetry
+      - install
+      - "&&"
+      - poetry
       - run
       - pytest
       - --junitxml=./pytest.xml
