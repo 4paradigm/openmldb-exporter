@@ -1,7 +1,4 @@
-import argparse
 import requests
-import pytest
-
 
 prom_url = 'http://prometheus:9090'
 
