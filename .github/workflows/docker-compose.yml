@@ -27,7 +27,9 @@ jobs:
           docker compose --file docker-compose.yml up -d grafana
 
       - name: verbose services
+        # ensure all services is up
         run: |
+          sleep 10
           docker compose --file docker-compose.yml ps -a
 
       - name: run tests

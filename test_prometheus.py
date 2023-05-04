@@ -13,4 +13,4 @@ def test_prometheus_targets():
     response_json = response.json()
 
     for target in response_json["data"]["activeTargets"]:
-        assert target["health"] == "up"
+        assert target["health"] == "up", f"Target is {target}"
