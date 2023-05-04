@@ -35,37 +35,15 @@ services:
     volumes:
       - ./res/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
-      - prometheus-pre-hook
-
-  prometheus-pre-hook:
-    # pre hook before prometheus starts
-    # OpenMLDB's domain resolving is not complete,
-    # we should fix the entries in prometheus config that nslookup
-    # domain into ip address for {openmldb_components}, otherwise 
-    # metrics will get inconsistent labels for label=endpoint
-    container_name: openmldb_prometheus_pre_hook
-    build:
-      context: .
-      dockerfile: hook.Dockerfile
-    volumes:
-      - ./res/:/opt/res/
-    restart: no
-    command:
-      - --input
-      - /opt/res/prometheus_example.yml
-      - --output
-      - /opt/res/prometheus.yml
-    depends_on:
       - openmldb-exporter
 
   openmldb-exporter:
     container_name: openmldb_exporter
     # 0.8.0.alpha1 uses openmldb that able to resolve domain
-    image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
-    # fixme
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    # image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 8000
     command:
@@ -87,7 +65,7 @@ services:
 
   openmldb-ns1:
     container_name: openmldb_ns1
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=nameserver"
       - "--endpoint=openmldb-ns1:9527"
@@ -100,7 +78,7 @@ services:
 
   openmldb-ns2:
     container_name: openmldb_ns2
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=nameserver"
       - "--endpoint=openmldb-ns2:9527"
@@ -113,7 +91,7 @@ services:
 
   openmldb-tablet1:
     container_name: openmldb_tablet1
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=tablet"
       - "--endpoint=openmldb-tablet1:9527"
@@ -124,7 +102,7 @@ services:
 
   openmldb-tablet2:
     container_name: openmldb_tablet2
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=tablet"
       - "--endpoint=openmldb-tablet2:9527"
@@ -135,7 +113,7 @@ services:
 
   openmldb-tablet3:
     container_name: openmldb_tablet3
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=tablet"
       - "--endpoint=openmldb-tablet3:9527"
