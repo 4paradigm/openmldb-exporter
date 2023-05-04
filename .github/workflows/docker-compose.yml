@@ -24,7 +24,11 @@ jobs:
 
       - name: service up
         run: |
-          docker compose --file docker-compose.yml up -d --wait-timeout 5
+          docker compose --file docker-compose.yml up -d --wait-timeout 5 grafana
+
+      - name: verbose services
+        run: |
+          docker compose --file docker-compose.yml ps -a
 
       - name: run tests
         run: |

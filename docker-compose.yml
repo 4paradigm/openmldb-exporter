@@ -15,6 +15,7 @@ services:
       - |
         poetry install
         poetry run pytest --junit-xml=./pytest.xml
+        chmod 666 pytest.xml
     depends_on:
       - grafana
 
