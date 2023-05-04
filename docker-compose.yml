@@ -61,11 +61,10 @@ services:
   openmldb-exporter:
     container_name: openmldb_exporter
     # 0.8.0.alpha1 uses openmldb that able to resolve domain
-    image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
-    # fixme
-    # build:
-    #   context: .
-    #   dockerfile: Dockerfile
+    # image: ghcr.io/aceforeverd/openmldb-exporter:0.8.0.alpha1
+    build:
+      context: .
+      dockerfile: Dockerfile
     ports:
       - 8000
     command:
@@ -87,7 +86,7 @@ services:
 
   openmldb-ns1:
     container_name: openmldb_ns1
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=nameserver"
       - "--endpoint=openmldb-ns1:9527"
@@ -100,7 +99,7 @@ services:
 
   openmldb-ns2:
     container_name: openmldb_ns2
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=nameserver"
       - "--endpoint=openmldb-ns2:9527"
@@ -113,7 +112,7 @@ services:
 
   openmldb-tablet1:
     container_name: openmldb_tablet1
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=tablet"
       - "--endpoint=openmldb-tablet1:9527"
@@ -124,7 +123,7 @@ services:
 
   openmldb-tablet2:
     container_name: openmldb_tablet2
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=tablet"
       - "--endpoint=openmldb-tablet2:9527"
@@ -135,7 +134,7 @@ services:
 
   openmldb-tablet3:
     container_name: openmldb_tablet3
-    image: ghcr.io/aceforeverd/openmldb-server:0.8.0.alpha1
+    image: ghcr.io/aceforeverd/openmldb-server:latest
     command:
       - "--role=tablet"
       - "--endpoint=openmldb-tablet3:9527"
