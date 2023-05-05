@@ -38,7 +38,10 @@ services:
 
   openmldb-exporter:
     container_name: openmldb_exporter
-    image: ghcr.io/aceforeverd/openmldb-exporter:0.7.0
+    # image: ghcr.io/aceforeverd/openmldb-exporter:0.6.0
+    build:
+      context: .
+      dockerfile: src.Dockerfile
     ports:
       - 8000
     command:
