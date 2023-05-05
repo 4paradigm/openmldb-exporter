@@ -15,9 +15,8 @@ def pytest_addoption(parser):
                      default="http://openmldb-exporter:8000/metrics",
                      help="openmldb exporter pull url")
 
-
 @pytest.fixture(scope="session")
-def global_url(request):
+def conn(request):
     zk_root = request.config.getoption("--zk_root")
     zk_path = request.config.getoption("--zk_path")
 
@@ -27,4 +26,9 @@ def global_url(request):
     conn.execute("set session execute_mode = 'online'")
     # enable deploy response time
     conn.execute("set global deploy_stats = 'on'")
+    return conn
+
+
+@pytest.fixture(scope="session")
+def global_url(request):
     return request.config.getoption("--url")
