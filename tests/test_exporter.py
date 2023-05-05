@@ -141,8 +141,8 @@ BUCKET_CNT_EACH_DEPLOY = 14
 DEPLOY_SAMPLE_CNT_EACH_DEPLOY = BUCKET_CNT_EACH_DEPLOY + 1 + 1
 DEPLOY_METRIC_NAME = "openmldb_info_schema_deploy_response_time_seconds"
 DEPLOY_METRIC_NAME_BUCKET = DEPLOY_METRIC_NAME + "_bucket"
-DEPLOY_METRIC_NAME_COUNT = DEPLOY_METRIC_NAME + "openmldb_info_schema_deploy_response_time_seconds_count"
-DEPLOY_METRIC_NAME_SUM = DEPLOY_METRIC_NAME + "openmldb_info_schema_deploy_response_time_seconds_sum"
+DEPLOY_METRIC_NAME_COUNT = DEPLOY_METRIC_NAME + "_count"
+DEPLOY_METRIC_NAME_SUM = DEPLOY_METRIC_NAME + "_sum"
 def test_deploy_response_time(global_url, conn, api_url):
     response = requests.get(global_url)
     metrics = text_string_to_metric_families(response.text)
