@@ -61,11 +61,12 @@ def test_table_status(global_url, conn):
         "openmldb_table_partitions": 0,
         "openmldb_table_replica": 0,
         "openmldb_table_disk_bytes": 0,
-        "openmldb_table_memory_bytes": 0}
+        "openmldb_table_memory_bytes": 0
+    }
 
     metric_expect_value_dict = {
         "openmldb_table_rows": 3,
-        "openmldb_table_partitions": 8, # default value
+        "openmldb_table_partitions": 8,  # default value
         "openmldb_table_replica": 3,
     }
 
@@ -93,17 +94,39 @@ def test_table_status(global_url, conn):
     for metric in metrics:
         if metric.name in list(metric_name_to_len_dict.keys()):
             # one more series
-            assert len(metric.samples) == metric_name_to_len_dict[metric.name] + 1
+            assert len(
+                metric.samples) == metric_name_to_len_dict[metric.name] + 1
 
             for sample in metric.samples:
                 if sample.labels["table_path"] == db + "_" + tb:
                     if metric.name in list(metric_expect_value_dict.keys()):
                         # rows, partition, replica
-                        assert sample.value == metric_expect_value_dict[metric.name], f"{sample}"
+                        assert sample.value == metric_expect_value_dict[
+                            metric.name], f"{sample}"
                     elif metric.name == "openmldb_table_memory_bytes":
                         # memory bytes
                         assert sample.value > 0, f"{sample}"
                     elif metric.name == "openmldb_table_disk_bytes":
                         assert sample.value == 0, f"{sample}"
 
-                    assert sample.labels["storage_mode"] == "memory", f"{sample}"
+                    assert sample.labels[
+                        "storage_mode"] == "memory", f"{sample}"
+
+
+def test_connected_seconds(global_url):
+    response = requests.get(global_url)
+    metrics = text_string_to_metric_families(response.text)
+
+    ns_cnt = 0
+    tablet_cnt = 0
+    for metric in metrics:
+        if metric.name == "openmldb_connected_seconds_total":
+            for sample in metric.samples:
+                assert sample.value > 0.0
+                if sample.labels["role"] == "tablet":
+                    tablet_cnt += 1
+                elif sample.labels["role"] == "nameserver":
+                    ns_cnt += 1
+
+    assert ns_cnt == 2
+    assert tablet_cnt == 3
