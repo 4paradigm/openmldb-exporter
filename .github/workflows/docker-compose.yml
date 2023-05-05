@@ -36,6 +36,10 @@ jobs:
           sleep 60
           docker compose --file docker-compose.yml ps -a
 
+      - name: verbose exporter log
+        run: |
+          docker compose --file docker-compose.yml logs openmldb-exporter
+
       - name: run tests
         run: |
           docker compose --file docker-compose.yml up --no-recreate --exit-code-from testing testing
