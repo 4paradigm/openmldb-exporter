@@ -133,3 +133,37 @@ def test_connected_seconds(global_url):
     assert cnt == 1
     assert ns_cnt == 2
     assert tablet_cnt == 3
+
+def test_deploy_response_time(global_url, conn):
+    response = requests.get(global_url)
+    metrics = text_string_to_metric_families(response.text)
+
+    old_deploy_cnt = 0;
+    for metric in metrics:
+        if metric.name == "openmldb_info_schema_deploy_response_time":
+            old_deploy_cnt = len(metric.samples)
+
+    db = "db" + str(int(time.time()))
+    tb = "tb" + str(int(time.time()))
+    dp = "dp" + str(int(time.time()))
+    conn.execute("create database " + db)
+    conn.execute("use " + db)
+    conn.execute("create table " + tb + " (id int, val string, ts timestamp)")
+
+    conn.execute("deploy " + dp + " select id, count(val) over w as cnt from " + tb + " window w as (partition by id order by ts rows_range between 2s preceding and current row)")
+
+    time.sleep(60)
+
+    response = requests.get(global_url)
+    metrics = text_string_to_metric_families(response.text)
+
+    dp_cnt = 0
+    for metric in metrics:
+        if metric.name == "openmldb_info_schema_deploy_response_time":
+            assert len(metric.samples) == old_deploy_cnt + 1
+
+            for sample in metric.samples:
+                if sample.labels["deploy_path"] == db + "_" + dp:
+                    dp_cnt += 1
+
+    assert dp_cnt == 1
