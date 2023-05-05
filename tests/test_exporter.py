@@ -96,11 +96,14 @@ def test_table_status(global_url, conn):
             assert len(metric.samples) == metric_name_to_len_dict[metric.name] + 1
 
             for sample in metric.samples:
-                if metric.name in list(metric_expect_value_dict.keys()):
-                    # rows, partition, replica
-                    assert sample.value == metric_expect_value_dict[metric.name], f"{sample}"
-                elif metric.name == "openmldb_table_memory_bytes":
-                    # memory bytes
-                    assert sample.value > 0, f"{sample}"
-                elif metric.name == "openmldb_table_disk_bytes":
-                    assert sample.value == 0, f"{sample}"
+                if sample.labels["table_path"] == db + "_" + tb:
+                    if metric.name in list(metric_expect_value_dict.keys()):
+                        # rows, partition, replica
+                        assert sample.value == metric_expect_value_dict[metric.name], f"{sample}"
+                    elif metric.name == "openmldb_table_memory_bytes":
+                        # memory bytes
+                        assert sample.value > 0, f"{sample}"
+                    elif metric.name == "openmldb_table_disk_bytes":
+                        assert sample.value == 0, f"{sample}"
+
+                    assert sample.labels["storage_mode"] == "memory", f"{sample}"
