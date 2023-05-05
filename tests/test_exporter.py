@@ -117,16 +117,19 @@ def test_connected_seconds(global_url):
     response = requests.get(global_url)
     metrics = text_string_to_metric_families(response.text)
 
+    cnt = 0
     ns_cnt = 0
     tablet_cnt = 0
     for metric in metrics:
-        if metric.name == "openmldb_connected_seconds_total":
+        if metric.name == "openmldb_connected_seconds":
+            cnt += 1
             for sample in metric.samples:
-                assert sample.value > 0.0
                 if sample.labels["role"] == "tablet":
                     tablet_cnt += 1
                 elif sample.labels["role"] == "nameserver":
                     ns_cnt += 1
+                assert sample.value > 0.0
 
+    assert cnt == 1
     assert ns_cnt == 2
     assert tablet_cnt == 3
