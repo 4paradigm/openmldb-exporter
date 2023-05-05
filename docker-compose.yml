@@ -60,6 +60,7 @@ services:
   openmldb-api:
     container_name: openmldb_api
     image: ghcr.io/aceforeverd/openmldb-server:0.7.3
+    restart: on-failure
     command:
       - "--role=apiserver"
       - "--endpoint=openmldb-api:9527"
