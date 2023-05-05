@@ -136,14 +136,22 @@ def test_connected_seconds(global_url):
     assert ns_cnt == 2
     assert tablet_cnt == 3
 
+
+BUCKET_CNT_EACH_DEPLOY = 14
+DEPLOY_SAMPLE_CNT_EACH_DEPLOY = BUCKET_CNT_EACH_DEPLOY + 1 + 1
+DEPLOY_METRIC_NAME = "openmldb_info_schema_deploy_response_time_seconds"
+DEPLOY_METRIC_NAME_BUCKET = DEPLOY_METRIC_NAME + "_bucket"
+DEPLOY_METRIC_NAME_COUNT = DEPLOY_METRIC_NAME + "openmldb_info_schema_deploy_response_time_seconds_count"
+DEPLOY_METRIC_NAME_SUM = DEPLOY_METRIC_NAME + "openmldb_info_schema_deploy_response_time_seconds_sum"
 def test_deploy_response_time(global_url, conn, api_url):
     response = requests.get(global_url)
     metrics = text_string_to_metric_families(response.text)
 
-    old_deploy_cnt = 0;
+    old_deploy_sample_cnt = 0;
     for metric in metrics:
-        if metric.name == "openmldb_info_schema_deploy_response_time":
-            old_deploy_cnt = len(metric.samples)
+        if metric.name == DEPLOY_METRIC_NAME:
+            old_deploy_sample_cnt = len(metric.samples)
+
 
     db = "db" + str(int(time.time()))
     tb = "tb" + str(int(time.time()))
@@ -172,15 +180,29 @@ def test_deploy_response_time(global_url, conn, api_url):
     response = requests.get(global_url)
     metrics = text_string_to_metric_families(response.text)
 
-    dp_cnt = 0
+    new_bucket = 0
+    new_cnt = 0
+    new_sum = 0
+    new_cnt_value = 0
     for metric in metrics:
         print(metric)
 
-        if metric.name == "openmldb_info_schema_deploy_response_time":
-            assert len(metric.samples) == old_deploy_cnt + 1
+        if metric.name == DEPLOY_METRIC_NAME:
+            assert len(metric.samples) == old_deploy_sample_cnt + DEPLOY_SAMPLE_CNT_EACH_DEPLOY
 
             for sample in metric.samples:
-                if sample.labels["deploy_path"] == db + "_" + dp:
-                    dp_cnt += 1
+                if sample.labels["deploy_path"] == db + "." + dp:
+                    if sample.name == DEPLOY_METRIC_NAME_BUCKET:
+                        new_bucket += 1
+                    elif sample.name == DEPLOY_METRIC_NAME_COUNT:
+                        new_cnt += 1
+                        new_cnt_value = sample.value
+                    elif sample.name == DEPLOY_METRIC_NAME_SUM:
+                        new_sum += 1
 
-    assert dp_cnt == 1
+
+    assert new_cnt_value == deploy_cnt
+    assert new_cnt == 1
+    assert new_sum == 1
+    assert new_bucket == BUCKET_CNT_EACH_DEPLOY
+
