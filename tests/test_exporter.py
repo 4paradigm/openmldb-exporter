@@ -156,10 +156,10 @@ def test_deploy_response_time(global_url, conn):
     response = requests.get(global_url)
     metrics = text_string_to_metric_families(response.text)
 
-    print(metrics)
 
     dp_cnt = 0
     for metric in metrics:
+        print(metric)
         if metric.name == "openmldb_info_schema_deploy_response_time":
             assert len(metric.samples) == old_deploy_cnt + 1
 
