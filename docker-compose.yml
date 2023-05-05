@@ -66,6 +66,8 @@ services:
       - "--endpoint=openmldb-api:9527"
       - "--zk_cluster=openmldb-zk:2181"
       - "--zk_root_path=/openmldb"
+    ports:
+      - 9527
     depends_on:
       - openmldb-ns1
       - openmldb-ns2

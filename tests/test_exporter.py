@@ -155,15 +155,17 @@ def test_deploy_response_time(global_url, conn, api_url):
 
     post_ep = f"{api_url}/dbs/{db}/deployments/{dp}"
     post_data = {
-        "input": [ [ 1, '12', 1000 ] ]
+        "input": [ [ 1, "12", 1000 ] ]
     }
 
     deploy_cnt = random.randint(5, 100)
 
     for _ in range(deploy_cnt):
-        res = requests.post(post_ep, post_data)
-
-        assert res.status_code == 200, f"{res}"
+        try:
+            res = requests.post(post_ep, json=post_data, timeout=5)
+            assert res.status_code == 200, f"{res}"
+        except Exception as e:
+            assert False, f"apiserver is down: {e}"
 
     time.sleep(60)
 
