@@ -36,6 +36,7 @@ services:
       - ./res/prometheus.yml:/etc/prometheus/prometheus.yml
     depends_on:
       - openmldb-exporter
+      - openmldb-api
 
   openmldb-exporter:
     container_name: openmldb_exporter

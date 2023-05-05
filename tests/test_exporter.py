@@ -151,7 +151,7 @@ def test_deploy_response_time(global_url, conn, api_url):
     conn.execute("create database " + db)
     conn.execute("use " + db)
     conn.execute(f"create table {tb} (id int, val string, ts timestamp)")
-    conn.execute(f"deploy {dp} select id, count(val) over w as cnt from {tb} + window w as (partition by id order by ts rows_range between 2s preceding and current row)")
+    conn.execute(f"deploy {dp} select id, count(val) over w as cnt from {tb} window w as (partition by id order by ts rows_range between 2s preceding and current row)")
 
     post_ep = f"{api_url}/dbs/{db}/deployments/{dp}"
     post_data = {
