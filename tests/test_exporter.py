@@ -99,6 +99,8 @@ def test_table_status(global_url, conn):
                 if metric.name in list(metric_expect_value_dict.keys()):
                     # rows, partition, replica
                     assert sample.value == metric_expect_value_dict[metric.name], f"{sample}"
-                else:
-                    # disk & memory bytes
+                elif metric.name == "openmldb_table_memory_bytes":
+                    # memory bytes
                     assert sample.value > 0, f"{sample}"
+                elif metric.name == "openmldb_table_disk_bytes":
+                    assert sample.value == 0, f"{sample}"
