@@ -80,9 +80,9 @@ def test_table_status(global_url, conn):
     conn.execute("create database " + db)
     conn.execute("use " + db)
     conn.execute("create table " + tb + " (id int, val string)")
-    conn.execute("insert into " + tb + " values (1, 100)")
-    conn.execute("insert into " + tb + " values (2, 200)")
-    conn.execute("insert into " + tb + " values (3, 300)")
+    conn.execute("insert into " + tb + " values (1, '100')")
+    conn.execute("insert into " + tb + " values (2, '200')")
+    conn.execute("insert into " + tb + " values (3, '300')")
 
     # wait for metric pull
     time.sleep(60)
