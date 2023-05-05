@@ -149,7 +149,6 @@ def test_deploy_response_time(global_url, conn):
     conn.execute("create database " + db)
     conn.execute("use " + db)
     conn.execute("create table " + tb + " (id int, val string, ts timestamp)")
-
     conn.execute("deploy " + dp + " select id, count(val) over w as cnt from " + tb + " window w as (partition by id order by ts rows_range between 2s preceding and current row)")
 
     time.sleep(60)
@@ -161,6 +160,8 @@ def test_deploy_response_time(global_url, conn):
     for metric in metrics:
         if metric.name == "openmldb_info_schema_deploy_response_time":
             assert len(metric.samples) == old_deploy_cnt + 1
+
+            print(metric)
 
             for sample in metric.samples:
                 if sample.labels["deploy_path"] == db + "_" + dp:
