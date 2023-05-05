@@ -14,6 +14,10 @@ def pytest_addoption(parser):
                      action="store",
                      default="http://openmldb-exporter:8000/metrics",
                      help="openmldb exporter pull url")
+    parser.addoption("--api",
+                     action="store",
+                     default="http://openmldb-api:9527",
+                     help="openmldb apiserver url")
 
 @pytest.fixture(scope="session")
 def conn(request):
@@ -32,3 +36,7 @@ def conn(request):
 @pytest.fixture(scope="session")
 def global_url(request):
     return request.config.getoption("--url")
+
+@pytest.fixture(scope="session")
+def api_url(request):
+    return request.config.getoption("--api")

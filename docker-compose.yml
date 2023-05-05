@@ -17,6 +17,7 @@ services:
         poetry run pytest --junit-xml=./pytest.xml
     depends_on:
       - grafana
+      - openmldb-api
 
   grafana:
     container_name: openmldb_grafana
@@ -51,6 +52,18 @@ services:
     # so it may fail at very begining, set restart to always
     # to temporarily workaround the problem
     restart: on-failure
+    depends_on:
+      - openmldb-ns1
+      - openmldb-ns2
+
+  openmldb-api:
+    container_name: openmldb_api
+    image: ghcr.io/aceforeverd/openmldb-server:0.7.3
+    command:
+      - "--role=apiserver"
+      - "--endpoint=openmldb-api:9527"
+      - "--zk_cluster=openmldb-zk:2181"
+      - "--zk_root_path=/openmldb"
     depends_on:
       - openmldb-ns1
       - openmldb-ns2
