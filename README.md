@@ -139,8 +139,10 @@ openmldb = { path = "../python/", develop = true }
 
 ## Release History
 
-- 0.7.0
+- 0.7.1
     * Features
-        - Depends OpenMLDB SDK v0.7.x
-    * Bug fixes
-        - Integral metric overflow: https://github.com/4paradigm/OpenMLDB/pull/3003
+        - Upgrade OpenMLDB SDK to v0.7
+        - Upgrade prometheus client to 0.16
+- 0.6.0
+    * Features
+        - Depends on OpenMLDB SDK v0.6
