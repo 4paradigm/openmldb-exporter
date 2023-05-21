@@ -6,7 +6,6 @@ services:
     build:
       context: .
       dockerfile: test.Dockerfile
-    restart: no
     volumes:
       - ./:/usr/src/openmldb-exporter
     command:
@@ -17,7 +16,6 @@ services:
         poetry run pytest --junit-xml=./pytest.xml
     depends_on:
       - grafana
-      - openmldb-api
 
   grafana:
     container_name: openmldb_grafana
@@ -40,18 +38,14 @@ services:
 
   openmldb-exporter:
     container_name: openmldb_exporter
-    # image: ghcr.io/aceforeverd/openmldb-exporter:0.6.0
     build:
       context: .
-      dockerfile: src.Dockerfile
+      dockerfile: ${ENV_TYPE}.Dockerfile
     ports:
       - 8000
     command:
       - "--config.zk_root=openmldb-zk:2181"
       - "--config.zk_path=/openmldb"
-    # exporter require openmldb cluster fully started up
-    # so it may fail at very begining, set restart to always
-    # to temporarily workaround the problem
     restart: on-failure
     depends_on:
       - openmldb-ns1
