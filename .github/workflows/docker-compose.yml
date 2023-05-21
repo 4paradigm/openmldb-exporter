@@ -51,7 +51,7 @@ jobs:
           check_name: Monitoring integration test
           comment_title: Monitoring integration test
           files: |
-            ./monitoring/pytest.xml
+            ./pytest.xml
 
   prod-test:
     runs-on: ubuntu-latest
