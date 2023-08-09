@@ -3,5 +3,14 @@ updates:
   # Maintain dependencies for GitHub Actions
   - package-ecosystem: "github-actions"
     directory: "/"
+    reviewers:
+      - "aceforeverd"
+    schedule:
+      interval: "daily"
+
+  - package-ecosystem: "pip"
+    directory: "/"
+    reviewers:
+      - "aceforeverd"
     schedule:
       interval: "daily"
