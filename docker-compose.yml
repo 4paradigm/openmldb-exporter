@@ -83,6 +83,7 @@ services:
       - "--zk_cluster=openmldb-zk:2181"
       - "--zk_root_path=/openmldb"
     depends_on:
+      - openmldb-ns2
       - openmldb-tablet1
       - openmldb-tablet2
       - openmldb-tablet3
@@ -112,6 +113,7 @@ services:
       - "--zk_root_path=/openmldb"
     depends_on:
       - openmldb-zk
+      - openmldb-tablet2
 
   openmldb-tablet2:
     container_name: openmldb_tablet2
@@ -124,6 +126,7 @@ services:
       - "--zk_root_path=/openmldb"
     depends_on:
       - openmldb-zk
+      - openmldb-tablet3
 
   openmldb-tablet3:
     container_name: openmldb_tablet3
