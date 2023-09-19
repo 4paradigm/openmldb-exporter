@@ -539,13 +539,13 @@ files = [
 
 [[package]]
 name = "openmldb"
-version = "0.8.2"
+version = "0.8.3"
 description = "OpenMLDB Python SDK"
 optional = false
 python-versions = "*"
 files = [
-    {file = "openmldb-0.8.2-py3-none-macosx_10_15_x86_64.whl", hash = "sha256:48ee1695c589c874b448e3d1ecd077b9971b3e6418caf5211e1a4d1b3f06d6ae"},
-    {file = "openmldb-0.8.2-py3-none-manylinux1_x86_64.whl", hash = "sha256:287f6fedbe7967a33824a3d3affeb6c14145460774992a2d8d9d66ae1dd0f582"},
+    {file = "openmldb-0.8.3-py3-none-macosx_10_15_x86_64.whl", hash = "sha256:9a7366c33be3b48923c525fa16a5bcd7ef8f93925d8c47637eec10fbc7251b6b"},
+    {file = "openmldb-0.8.3-py3-none-manylinux1_x86_64.whl", hash = "sha256:15a9d595a0fa29f360438ba0b77713f4641ea0de184e346b33f3b38ffdcda6b9"},
 ]
 
 [package.dependencies]
