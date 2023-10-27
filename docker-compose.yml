@@ -2,7 +2,6 @@ version: "3.8"
 
 services:
   testing:
-    container_name: openmldb_test_client
     build:
       context: .
       dockerfile: test.Dockerfile
@@ -18,7 +17,6 @@ services:
       - grafana
 
   grafana:
-    container_name: openmldb_grafana
     image: grafana/grafana-oss:8.3.11
     ports:
       - 3000
@@ -26,7 +24,6 @@ services:
       - prometheus
 
   prometheus:
-    container_name: openmldb_prometheus
     image: prom/prometheus:v2.43.0
     ports:
       - 9090
@@ -37,7 +34,6 @@ services:
       - openmldb-api
 
   openmldb-exporter:
-    container_name: openmldb_exporter
     build:
       context: .
       dockerfile: ${ENV_TYPE}.Dockerfile
@@ -52,9 +48,7 @@ services:
       - openmldb-ns2
 
   openmldb-api:
-    container_name: openmldb_api
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
-    restart: on-failure
     command:
       - --
       - "--role=apiserver"
@@ -63,18 +57,17 @@ services:
       - "--zk_root_path=/openmldb"
     ports:
       - 9527
+    restart: on-failure
     depends_on:
       - openmldb-ns1
       - openmldb-ns2
 
   openmldb-zk:
-    container_name: openmldb_zk
     image: zookeeper:3.4.14
     ports:
       - 2181
 
   openmldb-ns1:
-    container_name: openmldb_ns1
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
       - --
@@ -82,6 +75,7 @@ services:
       - "--endpoint=openmldb-ns1:9527"
       - "--zk_cluster=openmldb-zk:2181"
       - "--zk_root_path=/openmldb"
+    restart: on-failure
     depends_on:
       - openmldb-ns2
       - openmldb-tablet1
@@ -89,7 +83,6 @@ services:
       - openmldb-tablet3
 
   openmldb-ns2:
-    container_name: openmldb_ns2
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
       - --
@@ -97,13 +90,13 @@ services:
       - "--endpoint=openmldb-ns2:9527"
       - "--zk_cluster=openmldb-zk:2181"
       - "--zk_root_path=/openmldb"
+    restart: on-failure
     depends_on:
       - openmldb-tablet1
       - openmldb-tablet2
       - openmldb-tablet3
 
   openmldb-tablet1:
-    container_name: openmldb_tablet1
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
       - --
@@ -116,7 +109,6 @@ services:
       - openmldb-tablet2
 
   openmldb-tablet2:
-    container_name: openmldb_tablet2
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
       - --
@@ -129,7 +121,6 @@ services:
       - openmldb-tablet3
 
   openmldb-tablet3:
-    container_name: openmldb_tablet3
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
       - --
