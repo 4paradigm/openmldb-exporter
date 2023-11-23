@@ -1,9 +1,52 @@
 {
+  "__inputs": [
+    {
+      "name": "DS_PROMETHEUS",
+      "label": "Prometheus",
+      "description": "",
+      "type": "datasource",
+      "pluginId": "prometheus",
+      "pluginName": "Prometheus"
+    }
+  ],
+  "__elements": [],
+  "__requires": [
+    {
+      "type": "panel",
+      "id": "gauge",
+      "name": "Gauge",
+      "version": ""
+    },
+    {
+      "type": "grafana",
+      "id": "grafana",
+      "name": "Grafana",
+      "version": "8.3.11"
+    },
+    {
+      "type": "datasource",
+      "id": "prometheus",
+      "name": "Prometheus",
+      "version": "1.0.0"
+    },
+    {
+      "type": "panel",
+      "id": "stat",
+      "name": "Stat",
+      "version": ""
+    },
+    {
+      "type": "panel",
+      "id": "timeseries",
+      "name": "Time series",
+      "version": ""
+    }
+  ],
   "annotations": {
     "list": [
       {
         "builtIn": 1,
-        "datasource": "hCnkmqSSk",
+        "datasource": "${DS_PROMETHEUS}",
         "enable": true,
         "hide": true,
         "iconColor": "rgba(0, 211, 255, 1)",
@@ -23,8 +66,8 @@
   "fiscalYearStartMonth": 0,
   "gnetId": 17843,
   "graphTooltip": 1,
-  "id": 2,
-  "iteration": 1700718597149,
+  "id": null,
+  "iteration": 1700722204943,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -44,7 +87,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "whether a component is online or offline",
       "fieldConfig": {
@@ -111,7 +154,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "openmldb_status{job=~\"$job\", openmldb_status=\"online\", endpoint=~\"$endpoint\"}",
@@ -127,7 +170,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "connected time in seconds for each components in the OpenMLDB cluster",
       "fieldConfig": {
@@ -176,7 +219,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "openmldb_connected_seconds_total{job=~\"$job\", endpoint=~\"$endpoint\"}",
@@ -193,7 +236,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "fieldConfig": {
         "defaults": {
@@ -243,7 +286,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "process_memory_virtual{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -258,7 +301,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -306,7 +349,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum ({__name__=~\"rpc_server_.*_openmldb_api_tablet_server_query_count\", job=~\"$component_job\"})",
@@ -321,7 +364,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -369,7 +412,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum ({__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sub_query_count\", job=~\"$component_job\"})",
@@ -384,7 +427,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -432,7 +475,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum ({__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sqlbatch_request_query_count\", job=~\"$component_job\"})",
@@ -447,7 +490,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "",
       "fieldConfig": {
@@ -495,7 +538,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum ({__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sub_batch_request_query_count\", job=~\"$component_job\"})",
@@ -510,7 +553,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Table Rows Count for all tables",
       "fieldConfig": {
@@ -557,7 +600,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(openmldb_table_rows{job=~\"$job\"})",
@@ -572,7 +615,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Table Memory Used for all tables",
       "fieldConfig": {
@@ -620,7 +663,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum(openmldb_table_memory_bytes{job=~\"$job\"})",
@@ -635,7 +678,7 @@
     {
       "datasource": {
         "type": "prometheus",
-        "uid": "hCnkmqSSk"
+        "uid": "${DS_PROMETHEUS}"
       },
       "description": "Table Disk Used for all tables",
       "fieldConfig": {
@@ -683,7 +726,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "exemplar": true,
           "expr": "sum (openmldb_table_disk_bytes{job=~\"$job\"})",
@@ -708,7 +751,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -755,7 +798,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": false,
               "expr": "openmldb_table_partitions{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -773,7 +816,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -820,7 +863,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_replica{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -836,7 +879,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -883,7 +926,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_rows{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -899,7 +942,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -947,7 +990,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_memory_bytes{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -963,7 +1006,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -1011,7 +1054,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_disk_bytes{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -1027,7 +1070,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -1078,7 +1121,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_partitions_unalive{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -1096,7 +1139,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -1174,7 +1217,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_rows{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -1193,7 +1236,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -1271,7 +1314,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_memory_bytes{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -1290,7 +1333,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1365,7 +1408,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_table_disk_bytes{job=~\"$job\", table_path=~\"$table_path\"}",
@@ -1395,7 +1438,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "calc in recent 75s(by default, specified by [-bvar_dump_interval])\\nif requests < 60 in whole interval, qps will be 0",
           "fieldConfig": {
@@ -1436,8 +1479,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1469,7 +1511,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "sum({__name__=~\".*_deployment_count\", db=\"$db\", deployment=\"$deployment\"})",
@@ -1484,7 +1526,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "calc in recent 75s(by default, specified by [-bvar_dump_interval])",
           "fieldConfig": {
@@ -1525,8 +1567,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -1559,7 +1600,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "sum({__name__=~\".*_deployment_qps\", db=\"$db\", deployment=\"$deployment\"})",
@@ -1574,7 +1615,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "calc in recent 75s(by default, specified by [-bvar_dump_interval])",
           "fieldConfig": {
@@ -1615,8 +1656,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   }
                 ]
               },
@@ -1662,7 +1702,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "label_replace({__name__=~\".*_deployment_latency\", db=\"$db\", deployment=\"$deployment\"}, \"quantile\", \"avg\", \"quantile\", \"\")",
@@ -1734,7 +1774,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_uptime{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -1751,7 +1791,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "Uptime for a single component, whether connected to the cluster is not considered",
           "fieldConfig": {
@@ -1804,7 +1844,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_cpu_usage{job=\"$component_job\", instance=~\"$endpoint\"}",
@@ -1821,7 +1861,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1867,7 +1907,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "rpc_channel_connection_count{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -1882,7 +1922,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1928,7 +1968,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": " process_thread_count{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -1943,7 +1983,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -1989,7 +2029,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_fd_count{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2004,7 +2044,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2050,7 +2090,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "bthread_count{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2065,7 +2105,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -2139,7 +2179,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_cpu_usage{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2152,7 +2192,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_cpu_usage_user{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2164,7 +2204,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_cpu_usage_system{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2180,7 +2220,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2255,7 +2295,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_memory_virtual{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2270,7 +2310,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "bytes read/write per second",
           "fieldConfig": {
@@ -2344,7 +2384,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": " process_io_read_bytes_second{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2357,7 +2397,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": " process_io_write_bytes_second{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2375,7 +2415,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "bytes read/write per second",
           "fieldConfig": {
@@ -2449,7 +2489,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_disk_read_bytes_second{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2462,7 +2502,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_disk_write_bytes_second{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2478,7 +2518,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "bytes read/write per second",
           "fieldConfig": {
@@ -2552,7 +2592,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "process_uptime{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2569,7 +2609,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "bytes read/write per second",
           "fieldConfig": {
@@ -2643,7 +2683,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_connected_seconds_total{job=~\"$job\", endpoint=~\"$endpoint\"}",
@@ -2660,7 +2700,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -2730,7 +2770,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": " process_io_write_second{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2741,7 +2781,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": " process_io_read_second{job=~\"$component_job\", instance=~\"$endpoint\"}",
@@ -2772,7 +2812,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -2819,7 +2859,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__=~\"rpc_server_.*_openmldb_api_tablet_server_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -2834,7 +2874,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -2881,7 +2921,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": " ({__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sqlbatch_request_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"})",
@@ -2896,7 +2936,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -2943,7 +2983,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sub_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -2958,7 +2998,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -3005,7 +3045,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": " ({__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sub_batch_request_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"})",
@@ -3020,7 +3060,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -3097,7 +3137,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3110,7 +3150,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_query_error\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3128,7 +3168,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -3205,7 +3245,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sub_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3218,7 +3258,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__=~\"rpc_server_.*_openmldb_api_tablet_server_sub_query_error\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3236,7 +3276,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -3313,7 +3353,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_sqlbatch_request_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3326,7 +3366,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_sqlbatch_request_query_error\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3344,7 +3384,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -3421,7 +3461,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_sub_batch_request_query_count\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3434,7 +3474,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_sub_batch_request_query_error\", job=~\"$component_job\", instance=~\"$tablet_endpoint\"}",
@@ -3452,7 +3492,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "",
           "fieldConfig": {
@@ -3535,7 +3575,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_tablet_memory_actual_used_bytes{endpoint=~\"$tablet_endpoint\", job=~\"$job\"}",
@@ -3548,7 +3588,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "openmldb_tablet_memory_application_bytes{endpoint=~\"$tablet_endpoint\", job=~\"$job\"}",
@@ -3578,7 +3618,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "description": "include subquery",
           "fieldConfig": {
@@ -3619,8 +3659,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3653,7 +3692,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_query\"}",
@@ -3682,7 +3721,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3722,8 +3761,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3756,7 +3794,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "label_replace({__name__=~\".*_http_method_latency\"}, \"quantile\", \"avg\", \"quantile\", \"\")",
@@ -3771,7 +3809,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3811,8 +3849,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3845,7 +3882,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__=~\".*_http_method_max_latency\"}",
@@ -3860,7 +3897,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3900,8 +3937,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -3934,7 +3970,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__=~\".*_http_method_qps\"}",
@@ -3949,7 +3985,7 @@
         {
           "datasource": {
             "type": "prometheus",
-            "uid": "hCnkmqSSk"
+            "uid": "${DS_PROMETHEUS}"
           },
           "fieldConfig": {
             "defaults": {
@@ -3989,8 +4025,7 @@
                 "mode": "absolute",
                 "steps": [
                   {
-                    "color": "green",
-                    "value": null
+                    "color": "green"
                   },
                   {
                     "color": "red",
@@ -4023,7 +4058,7 @@
             {
               "datasource": {
                 "type": "prometheus",
-                "uid": "hCnkmqSSk"
+                "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
               "expr": "{__name__=~\".*_http_route\"}",
@@ -4068,18 +4103,10 @@
         "type": "datasource"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "hCnkmqSSk"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(openmldb_status, job)",
         "description": "Name of the prometheus job that pulls OpenMLDB DB-Level Metrics",
@@ -4100,18 +4127,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "apiserver"
-          ],
-          "value": [
-            "apiserver"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "hCnkmqSSk"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(process_uptime, job)",
         "description": "The name of prometheus job that pulls Component-Level metrics ",
@@ -4132,14 +4151,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "hCnkmqSSk"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(process_uptime, instance)",
         "description": "The 'IP:PORT' endpoint of a component",
@@ -4160,14 +4175,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": false,
-          "text": "All",
-          "value": "$__all"
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "hCnkmqSSk"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(openmldb_table_rows, table_path)",
         "description": "${db_name}_${table_name} to a table",
@@ -4188,18 +4199,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "All"
-          ],
-          "value": [
-            "$__all"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "hCnkmqSSk"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values(openmldb_tablet_memory_application_bytes, endpoint)",
         "description": "Endpoint to a Tablet",
@@ -4220,18 +4223,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "demo_db"
-          ],
-          "value": [
-            "demo_db"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "hCnkmqSSk"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values({__name__=~\".*_deployment_count\"},db)",
         "description": "{{db_name}} for a deployment name",
@@ -4252,18 +4247,10 @@
         "type": "query"
       },
       {
-        "current": {
-          "selected": true,
-          "text": [
-            "demo_data_service"
-          ],
-          "value": [
-            "demo_data_service"
-          ]
-        },
+        "current": {},
         "datasource": {
           "type": "prometheus",
-          "uid": "hCnkmqSSk"
+          "uid": "${DS_PROMETHEUS}"
         },
         "definition": "label_values({__name__=~\".*_deployment_count\",db=\"$db\"},deployment)",
         "description": "{deployment} name",
