@@ -23,7 +23,7 @@ import sys
 import logging
 from typing import (Iterable)
 
-from openmldb_exporter.collector import (ConfigStore, Collector, TableStatusCollector, DeployQueryStatCollector,
+from openmldb_exporter.collector import (ConfigStore, Collector, TableStatusCollector,
                                          ComponentStatusCollector)
 from prometheus_client.twisted import MetricsResource
 from sqlalchemy import engine
@@ -55,7 +55,6 @@ def main():
 
     collectors = (
         TableStatusCollector(conn),
-        DeployQueryStatCollector(conn),
         ComponentStatusCollector(conn),
     )
 

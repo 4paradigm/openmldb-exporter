@@ -18,7 +18,7 @@ Collector definations
 from abc import ABC, abstractmethod
 from sqlalchemy import (engine, Table, Column, MetaData, String, Integer)
 from openmldb_exporter.collector import (connected_seconds, component_status, table_rows, table_partitions,
-                                table_partitions_unalive, table_memory, table_disk, table_replica, deploy_response_time,
+                                table_partitions_unalive, table_memory, table_disk, table_replica,
                                 tablet_memory_application, tablet_memory_actual)
 from urllib import request
 import time
@@ -70,58 +70,6 @@ class TableStatusCollector(Collector, SDKConnectable):
             table_replica.labels(tb_path, tid, storage_type).set(int(replica))
             table_memory.labels(tb_path, tid, storage_type).set(int(mem))
             table_disk.labels(tb_path, tid, storage_type).set(int(disk))
-
-
-class DeployQueryStatCollector(Collector, SDKConnectable):
-    '''
-    deploy query statistics collector
-    '''
-    _metadata: MetaData
-    _deploy_response_time: Table
-
-    def __init__(self, conn: engine.Connection):
-        super().__init__(conn)
-        self._init_table_info()
-
-    def collect(self):
-        rs = self._conn.execute(self._deploy_response_time.select())
-        row = rs.fetchone()
-        acc_map = {}
-        while row is not None:
-            logging.debug(row)
-
-            dp_name, time_second, count, total = row
-            time_second = float(time_second)
-
-            # update bucket count
-            for i, bound in enumerate(deploy_response_time._upper_bounds):
-                if time_second <= bound:
-                    # FIXME: handle Histogram reset correctly
-                    deploy_response_time.labels(dp_name)._buckets[i].set(int(count))
-                    break
-            # update sum for each deploy
-            if dp_name in acc_map:
-                acc_map[dp_name] += float(total)
-            else:
-                acc_map[dp_name] = float(total)
-            row = rs.fetchone()
-
-        # write sums
-        for key,value in acc_map.items():
-            deploy_response_time.labels(key)._sum.set(value)
-
-    def _init_table_info(self):
-        # sql parser do not recognize quoted string
-        self._metadata = MetaData(schema="INFORMATION_SCHEMA", bind=self._conn, quote_schema=False)
-        self._deploy_response_time = Table(
-            "DEPLOY_RESPONSE_TIME",
-            self._metadata,
-            Column("DEPLOY_NAME", String, quote=False),
-            Column("TIME", String, quote=False),
-            Column("COUNT", Integer, quote=False),
-            Column("TOTAL", String, quote=False),
-            quote=False,
-        )
 
 
 class ComponentStatusCollector(Collector, SDKConnectable):
