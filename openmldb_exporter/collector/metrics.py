@@ -26,7 +26,6 @@ ENDPOINT = "endpoint"
 ROLE = "role"
 TABLE_ID = "tid"
 TABLE_PATH = "table_path"
-DEPLOY_PATH = "deploy_path"
 STORAGE_MODE = "storage_mode"
 
 component_lables = [ENDPOINT, ROLE]
@@ -106,13 +105,3 @@ table_memory = Gauge(
     unit="bytes",
 )
 
-BUCKETS = (1 / 1000000, 1 / 100000, 1 / 10000, 1 / 1000, 1 / 100, 1 / 10, 1, 10, 100, 1000, 10000, 100000, 1000000, INF)
-deploy_response_time = Histogram(
-    "deploy_response_time",
-    "Deployment query response time histogram",
-    [DEPLOY_PATH],
-    subsystem="info_schema",
-    namespace=NAMESPACE,
-    unit="seconds",
-    buckets=BUCKETS,
-)

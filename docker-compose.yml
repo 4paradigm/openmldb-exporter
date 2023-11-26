@@ -50,7 +50,6 @@ services:
   openmldb-api:
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
-      - --
       - "--role=apiserver"
       - "--endpoint=openmldb-api:9527"
       - "--zk_cluster=openmldb-zk:2181"
@@ -70,7 +69,6 @@ services:
   openmldb-ns1:
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
-      - --
       - "--role=nameserver"
       - "--endpoint=openmldb-ns1:9527"
       - "--zk_cluster=openmldb-zk:2181"
@@ -85,7 +83,6 @@ services:
   openmldb-ns2:
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
-      - --
       - "--role=nameserver"
       - "--endpoint=openmldb-ns2:9527"
       - "--zk_cluster=openmldb-zk:2181"
@@ -99,7 +96,6 @@ services:
   openmldb-tablet1:
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
-      - --
       - "--role=tablet"
       - "--endpoint=openmldb-tablet1:9527"
       - "--zk_cluster=openmldb-zk:2181"
@@ -111,7 +107,6 @@ services:
   openmldb-tablet2:
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
-      - --
       - "--role=tablet"
       - "--endpoint=openmldb-tablet2:9527"
       - "--zk_cluster=openmldb-zk:2181"
@@ -123,7 +118,6 @@ services:
   openmldb-tablet3:
     image: ghcr.io/aceforeverd/openmldb-server:${OPENMLDB_VERSION}
     command:
-      - --
       - "--role=tablet"
       - "--endpoint=openmldb-tablet3:9527"
       - "--zk_cluster=openmldb-zk:2181"
