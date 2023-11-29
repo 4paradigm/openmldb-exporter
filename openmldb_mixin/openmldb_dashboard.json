@@ -1514,7 +1514,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "sum({__name__=~\".*_deployment_count\", db=\"$db\", deployment=~\"$deployment\"})",
+              "expr": "sum({__name__=~\".*_deployment_count\", db=~\"$db\", deployment=~\"$deployment\"})",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1603,7 +1603,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "sum({__name__=~\".*_deployment_qps\", db=\"$db\", deployment=\"$deployment\"})",
+              "expr": "sum({__name__=~\".*_deployment_qps\", db=~\"$db\", deployment=~\"$deployment\"})",
               "interval": "",
               "legendFormat": "",
               "refId": "A"
@@ -1705,7 +1705,7 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "label_replace({__name__=~\".*_deployment_latency\", db=\"$db\", deployment=\"$deployment\"}, \"quantile\", \"avg\", \"quantile\", \"\")",
+              "expr": "label_replace({__name__=~\".*_deployment_latency\", db=~\"$db\", deployment=~\"$deployment\"}, \"quantile\", \"avg\", \"quantile\", \"\")",
               "hide": false,
               "interval": "",
               "legendFormat": "{{instance}}-{{quantile}}",
@@ -4252,7 +4252,7 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values({__name__=~\".*_deployment_count\",db=\"$db\"},deployment)",
+        "definition": "label_values({__name__=~\".*_deployment_count\",db=~\"$db\"},deployment)",
         "description": "{deployment} name",
         "hide": 0,
         "includeAll": false,
@@ -4261,7 +4261,7 @@
         "name": "deployment",
         "options": [],
         "query": {
-          "query": "label_values({__name__=~\".*_deployment_count\",db=\"$db\"},deployment)",
+          "query": "label_values({__name__=~\".*_deployment_count\",db=~\"$db\"},deployment)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
