@@ -67,7 +67,7 @@
   "gnetId": 17843,
   "graphTooltip": 1,
   "id": null,
-  "iteration": 1683194246663,
+  "iteration": 1700722204943,
   "links": [],
   "liveNow": false,
   "panels": [
@@ -736,69 +736,6 @@
         }
       ],
       "title": "Table Disk Used Total",
-      "type": "stat"
-    },
-    {
-      "datasource": {
-        "type": "prometheus",
-        "uid": "${DS_PROMETHEUS}"
-      },
-      "description": "Deploy Query Count for all deployments",
-      "fieldConfig": {
-        "defaults": {
-          "color": {
-            "mode": "thresholds"
-          },
-          "mappings": [],
-          "thresholds": {
-            "mode": "absolute",
-            "steps": [
-              {
-                "color": "green",
-                "value": null
-              }
-            ]
-          },
-          "unit": "none"
-        },
-        "overrides": []
-      },
-      "gridPos": {
-        "h": 5,
-        "w": 3,
-        "x": 12,
-        "y": 13
-      },
-      "id": 250,
-      "options": {
-        "colorMode": "value",
-        "graphMode": "area",
-        "justifyMode": "auto",
-        "orientation": "auto",
-        "reduceOptions": {
-          "calcs": [
-            "lastNotNull"
-          ],
-          "fields": "",
-          "values": false
-        },
-        "textMode": "auto"
-      },
-      "pluginVersion": "8.3.11",
-      "targets": [
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "exemplar": true,
-          "expr": "sum (openmldb_info_schema_deploy_response_time_seconds_count{job=~\"$job\"})",
-          "interval": "",
-          "legendFormat": "",
-          "refId": "A"
-        }
-      ],
-      "title": "Deploy Query Count Total",
       "type": "stat"
     },
     {
@@ -1503,7 +1440,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "description": "",
+          "description": "calc in recent 75s(by default, specified by [-bvar_dump_interval])\\nif requests < 60 in whole interval, qps will be 0",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1557,7 +1494,7 @@
             "h": 8,
             "w": 12,
             "x": 0,
-            "y": 21
+            "y": 20
           },
           "id": 93,
           "options": {
@@ -1577,13 +1514,13 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "openmldb_info_schema_deploy_response_time_seconds_count{job=~\"$job\", deploy_path=~\"$deploy_path\"}",
+              "expr": "sum({__name__=~\".*_deployment_count\", db=~\"$db\", deployment=~\"$deployment\"})",
               "interval": "",
-              "legendFormat": "{{deploy_path}}",
+              "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Deploy Query Count $deploy_path",
+          "title": "Deploy Query Count $db.$deployment",
           "type": "timeseries"
         },
         {
@@ -1591,7 +1528,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "description": "",
+          "description": "calc in recent 75s(by default, specified by [-bvar_dump_interval])",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1646,7 +1583,7 @@
             "h": 8,
             "w": 12,
             "x": 12,
-            "y": 21
+            "y": 20
           },
           "id": 620,
           "options": {
@@ -1666,13 +1603,13 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "rate(openmldb_info_schema_deploy_response_time_seconds_count{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m])",
+              "expr": "sum({__name__=~\".*_deployment_qps\", db=~\"$db\", deployment=~\"$deployment\"})",
               "interval": "",
-              "legendFormat": "{{deploy_path}}",
+              "legendFormat": "",
               "refId": "A"
             }
           ],
-          "title": "Deploy Query  QPS in 5m duration $deploy_path",
+          "title": "Deploy Query  QPS $db.$deployment",
           "type": "timeseries"
         },
         {
@@ -1680,96 +1617,7 @@
             "type": "prometheus",
             "uid": "${DS_PROMETHEUS}"
           },
-          "description": "",
-          "fieldConfig": {
-            "defaults": {
-              "color": {
-                "mode": "palette-classic"
-              },
-              "custom": {
-                "axisLabel": "",
-                "axisPlacement": "auto",
-                "barAlignment": 0,
-                "drawStyle": "line",
-                "fillOpacity": 0,
-                "gradientMode": "none",
-                "hideFrom": {
-                  "legend": false,
-                  "tooltip": false,
-                  "viz": false
-                },
-                "lineInterpolation": "linear",
-                "lineWidth": 1,
-                "pointSize": 5,
-                "scaleDistribution": {
-                  "type": "linear"
-                },
-                "showPoints": "auto",
-                "spanNulls": false,
-                "stacking": {
-                  "group": "A",
-                  "mode": "none"
-                },
-                "thresholdsStyle": {
-                  "mode": "off"
-                }
-              },
-              "mappings": [],
-              "thresholds": {
-                "mode": "absolute",
-                "steps": [
-                  {
-                    "color": "green"
-                  },
-                  {
-                    "color": "red",
-                    "value": 80
-                  }
-                ]
-              },
-              "unit": "s"
-            },
-            "overrides": []
-          },
-          "gridPos": {
-            "h": 8,
-            "w": 12,
-            "x": 0,
-            "y": 29
-          },
-          "id": 692,
-          "options": {
-            "legend": {
-              "calcs": [],
-              "displayMode": "list",
-              "placement": "bottom"
-            },
-            "tooltip": {
-              "mode": "single"
-            }
-          },
-          "targets": [
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "exemplar": true,
-              "expr": "rate(openmldb_info_schema_deploy_response_time_seconds_sum{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m]) / rate(openmldb_info_schema_deploy_response_time_seconds_count{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m])",
-              "interval": "",
-              "legendFormat": "{{deploy_path}}",
-              "refId": "A"
-            }
-          ],
-          "title": "Deploy Query  AVG duration in past 5m $deploy_path",
-          "type": "timeseries"
-        },
-        {
-          "datasource": {
-            "type": "prometheus",
-            "uid": "${DS_PROMETHEUS}"
-          },
-          "description": "",
+          "description": "calc in recent 75s(by default, specified by [-bvar_dump_interval])",
           "fieldConfig": {
             "defaults": {
               "color": {
@@ -1812,7 +1660,7 @@
                   }
                 ]
               },
-              "unit": "s"
+              "unit": "µs"
             },
             "overrides": [
               {
@@ -1835,8 +1683,8 @@
           "gridPos": {
             "h": 8,
             "w": 12,
-            "x": 12,
-            "y": 29
+            "x": 0,
+            "y": 28
           },
           "id": 676,
           "options": {
@@ -1857,66 +1705,19 @@
                 "uid": "${DS_PROMETHEUS}"
               },
               "exemplar": true,
-              "expr": "histogram_quantile(0.5, rate(openmldb_info_schema_deploy_response_time_seconds_bucket{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m]))",
+              "expr": "label_replace({__name__=~\".*_deployment_latency\", db=~\"$db\", deployment=~\"$deployment\"}, \"quantile\", \"avg\", \"quantile\", \"\")",
               "hide": false,
               "interval": "",
-              "legendFormat": "0.5",
-              "refId": "C"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "exemplar": true,
-              "expr": "histogram_quantile(0.9, rate(openmldb_info_schema_deploy_response_time_seconds_bucket{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m]))",
-              "interval": "",
-              "legendFormat": "0.9",
+              "legendFormat": "{{instance}}-{{quantile}}",
               "refId": "A"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "exemplar": true,
-              "expr": "histogram_quantile(0.95, rate(openmldb_info_schema_deploy_response_time_seconds_bucket{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "0.95",
-              "refId": "B"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "exemplar": true,
-              "expr": "histogram_quantile(0.99, rate(openmldb_info_schema_deploy_response_time_seconds_bucket{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "0.99",
-              "refId": "D"
-            },
-            {
-              "datasource": {
-                "type": "prometheus",
-                "uid": "${DS_PROMETHEUS}"
-              },
-              "exemplar": true,
-              "expr": "histogram_quantile(0.999, rate(openmldb_info_schema_deploy_response_time_seconds_bucket{job=~\"$job\", deploy_path=~\"$deploy_path\"}[5m]))",
-              "hide": false,
-              "interval": "",
-              "legendFormat": "0.999",
-              "refId": "E"
             }
           ],
-          "title": "0.5/0.9/0.95/0.99/0.999 quantile for deploy query response time $deploy_path",
+          "title": "avg/0.80/0.90/0.99/0.999/0.9999 quantile for deploy query response time $db.$deployment",
           "type": "timeseries"
         }
       ],
       "repeat": "deploy_path",
-      "title": "Deploy Query Response Time: $deploy_path",
+      "title": "Deploy Query Response Time: $db.$deployment",
       "type": "row"
     },
     {
@@ -3004,7 +2805,7 @@
         "h": 1,
         "w": 24,
         "x": 0,
-        "y": 145
+        "y": 23
       },
       "id": 283,
       "panels": [
@@ -3803,6 +3604,475 @@
       ],
       "title": "Tablet Specific status $tablet_endpoint",
       "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 24
+      },
+      "id": 722,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "description": "include subquery",
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "µs"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 153
+          },
+          "id": 790,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "{__name__ =~ \"rpc_server_.*_openmldb_api_tablet_server_query\"}",
+              "interval": "",
+              "legendFormat": "{{instance}}-{{quantile}}",
+              "refId": "A"
+            }
+          ],
+          "title": "Query RPC P99 Latency",
+          "type": "timeseries"
+        }
+      ],
+      "title": "Tablet Detail",
+      "type": "row"
+    },
+    {
+      "collapsed": true,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 25
+      },
+      "id": 724,
+      "panels": [
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "µs"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 42
+          },
+          "id": 784,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "label_replace({__name__=~\".*_http_method_latency\"}, \"quantile\", \"avg\", \"quantile\", \"\")",
+              "interval": "",
+              "legendFormat": "{{instance}}-{{method}}-{{quantile}}",
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP Methods P99",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "µs"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 42
+          },
+          "id": 788,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "{__name__=~\".*_http_method_max_latency\"}",
+              "interval": "",
+              "legendFormat": "{{instance}}-{{method}}",
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP Methods Max Latency",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "ops"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 50
+          },
+          "id": 754,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "{__name__=~\".*_http_method_qps\"}",
+              "interval": "",
+              "legendFormat": "{{instance}}-{{method}}",
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP Methods QPS",
+          "type": "timeseries"
+        },
+        {
+          "datasource": {
+            "type": "prometheus",
+            "uid": "${DS_PROMETHEUS}"
+          },
+          "fieldConfig": {
+            "defaults": {
+              "color": {
+                "mode": "palette-classic"
+              },
+              "custom": {
+                "axisLabel": "",
+                "axisPlacement": "auto",
+                "barAlignment": 0,
+                "drawStyle": "line",
+                "fillOpacity": 0,
+                "gradientMode": "none",
+                "hideFrom": {
+                  "legend": false,
+                  "tooltip": false,
+                  "viz": false
+                },
+                "lineInterpolation": "linear",
+                "lineWidth": 1,
+                "pointSize": 5,
+                "scaleDistribution": {
+                  "type": "linear"
+                },
+                "showPoints": "auto",
+                "spanNulls": false,
+                "stacking": {
+                  "group": "A",
+                  "mode": "none"
+                },
+                "thresholdsStyle": {
+                  "mode": "off"
+                }
+              },
+              "mappings": [],
+              "thresholds": {
+                "mode": "absolute",
+                "steps": [
+                  {
+                    "color": "green"
+                  },
+                  {
+                    "color": "red",
+                    "value": 80
+                  }
+                ]
+              },
+              "unit": "µs"
+            },
+            "overrides": []
+          },
+          "gridPos": {
+            "h": 8,
+            "w": 6,
+            "x": 12,
+            "y": 50
+          },
+          "id": 786,
+          "options": {
+            "legend": {
+              "calcs": [],
+              "displayMode": "list",
+              "placement": "bottom"
+            },
+            "tooltip": {
+              "mode": "single"
+            }
+          },
+          "targets": [
+            {
+              "datasource": {
+                "type": "prometheus",
+                "uid": "${DS_PROMETHEUS}"
+              },
+              "exemplar": true,
+              "expr": "{__name__=~\".*_http_route\"}",
+              "interval": "",
+              "legendFormat": "{{instance}}-{{quantile}}",
+              "refId": "A"
+            }
+          ],
+          "title": "HTTP Route Latency",
+          "type": "timeseries"
+        }
+      ],
+      "title": "APIServer HTTP Methods",
+      "type": "row"
     }
   ],
   "refresh": false,
@@ -3816,8 +4086,8 @@
       {
         "current": {
           "selected": false,
-          "text": "default",
-          "value": "default"
+          "text": "Prometheus",
+          "value": "Prometheus"
         },
         "hide": 0,
         "includeAll": false,
@@ -3958,16 +4228,40 @@
           "type": "prometheus",
           "uid": "${DS_PROMETHEUS}"
         },
-        "definition": "label_values(openmldb_info_schema_deploy_response_time_seconds_count, deploy_path)",
-        "description": "{db_name}}_{{deploy_name}} for a deployment name",
+        "definition": "label_values({__name__=~\".*_deployment_count\"},db)",
+        "description": "{{db_name}} for a deployment name",
         "hide": 0,
         "includeAll": true,
-        "label": "Deploy Path",
+        "label": "Database",
         "multi": true,
-        "name": "deploy_path",
+        "name": "db",
         "options": [],
         "query": {
-          "query": "label_values(openmldb_info_schema_deploy_response_time_seconds_count, deploy_path)",
+          "query": "label_values({__name__=~\".*_deployment_count\"},db)",
+          "refId": "StandardVariableQuery"
+        },
+        "refresh": 2,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "type": "query"
+      },
+      {
+        "current": {},
+        "datasource": {
+          "type": "prometheus",
+          "uid": "${DS_PROMETHEUS}"
+        },
+        "definition": "label_values({__name__=~\".*_deployment_count\",db=~\"$db\"},deployment)",
+        "description": "{deployment} name",
+        "hide": 0,
+        "includeAll": false,
+        "label": "Deployment",
+        "multi": true,
+        "name": "deployment",
+        "options": [],
+        "query": {
+          "query": "label_values({__name__=~\".*_deployment_count\",db=~\"$db\"},deployment)",
           "refId": "StandardVariableQuery"
         },
         "refresh": 1,
@@ -4010,6 +4304,6 @@
   "timezone": "",
   "title": "OpenMLDB dashboard",
   "uid": "SXUXvsbMk",
-  "version": 2,
+  "version": 3,
   "weekStart": ""
 }
