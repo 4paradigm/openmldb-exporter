@@ -130,7 +130,31 @@ optional arguments:
    Pass in necessary flags after `openmldb-exporter`. Run `poetry run openmldb-exporter --help` to get the help info.
 
 
+## Compatibility
+
+| OpenMLDB Exporter version | OpenMLDB supported version | Explaination |
+| ---- | ---- | ---- |
+| >= 0.9.0 | >= 0.8.4 | OpenMLDB removed deploy response time in database since 0.8.4 |
+| < 0.9.0  | >= 0.5.0, < 0.8.4 | |
+
+
 ## Release History
+
+- 0.9.0
+    * Features 
+      - **BREAKING** support OpenMLDB 0.8.4. OpenMLDB 0.8.4 removed deploy response time, please use openmldb-exporter >= 0.9.0. Ref [Compatibility](#compatibility) info above
+    * Chores
+      - update deps
+
+- 0.8.2
+    * Chores
+      - deps: restrict OpenMLDB version < 0.8.4
+
+- 0.8.1
+    * Features
+      - update openmldb-exporter docker image
+    * Chores
+      - doc and workflow updates
 
 - 0.8.0
     * Features
