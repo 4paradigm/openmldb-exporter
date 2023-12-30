@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "openmldb-exporter"
-version = "0.8.0"
+version = "0.9.0"
 description = "prometheus exporter for OpenMLDB"
 authors = ["aceforeverd <teapot@aceforeverd.com>"]
 license = "Apache-2.0"
@@ -20,19 +20,17 @@ openmldb-exporter = "openmldb_exporter.exporter:main"
 
 [tool.poetry.dependencies]
 python = "^3.8"
-prometheus-client = ">=0.16,<0.18"
+prometheus-client = "^0.19.0"
 openmldb = "^0.8.0"
 # uncomment below to use openmldb sdk built from source
 # set develop = true so changes in python will take effect immediately
 # openmldb = { path = "../python/", develop = true }
 Twisted = ">=22.2,<24.0"
 
-[tool.poetry.dev-dependencies]
-pylint = "^2.17.5"
-
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
 requests = "^2.29.0"
+pylint = "^3.0.3"
 
 [build-system]
 requires = ["poetry-core>=1.0.0"]
