@@ -141,7 +141,7 @@ optional arguments:
 ## Release History
 
 - 0.9.0
-    * Features 
+    * Features
       - **BREAKING** support OpenMLDB 0.8.4. OpenMLDB 0.8.4 removed deploy response time, please use openmldb-exporter >= 0.9.0. Ref [Compatibility](#compatibility) info above
     * Chores
       - update deps
