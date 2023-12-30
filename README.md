@@ -132,10 +132,10 @@ optional arguments:
 
 ## Compatibility
 
-| OpenMLDB Exporter version | OpenMLDB supported version | Explaination |
-| ---- | ---- | ---- |
-| >= 0.9.0 | >= 0.8.4 | OpenMLDB removed deploy response time in database since 0.8.4 |
-| < 0.9.0  | >= 0.5.0, < 0.8.4 | |
+| [OpenMLDB Exporter version](https://grafana.com/grafana/dashboards/17843-openmldb-dashboard/?tab=revisions) | [OpenMLDB supported version](https://github.com/4paradigm/OpenMLDB/releases) | [Grafana Dashboard revision](https://grafana.com/grafana/dashboards/17843-openmldb-dashboard/?tab=revisions) | Explaination |
+| ---- | ---- | ---- | ------- |
+| >= 0.9.0 | >= 0.8.4 | >=4 | OpenMLDB removed deploy response time in database since 0.8.4 |
+| < 0.9.0  | >= 0.5.0, < 0.8.4 | 3 | |
 
 
 ## Release History
@@ -143,8 +143,12 @@ optional arguments:
 - 0.9.0
     * Features
       - **BREAKING** support OpenMLDB 0.8.4. OpenMLDB 0.8.4 removed deploy response time, please use openmldb-exporter >= 0.9.0. Ref [Compatibility](#compatibility) info above
+      - **BREAKING** update grafana dashboard config, use the latest revision (4 or later) if you upgrade OpenMLDB cluster >=0.8.4. For legacy OpenMLDB <= 0.8.3, select [revison 3](https://grafana.com/api/dashboards/17843/revisions/3/download). You can also download corresponding Grafana dashboard from Github Release asserts
+    * Tests
+      - Remove deploy response time related tests
     * Chores
       - update deps
+      - add CI jobs
 
 - 0.8.2
     * Chores
