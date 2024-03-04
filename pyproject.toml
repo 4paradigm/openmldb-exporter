@@ -25,7 +25,7 @@ openmldb = "^0.8.4"
 # uncomment below to use openmldb sdk built from source
 # set develop = true so changes in python will take effect immediately
 # openmldb = { path = "../python/", develop = true }
-Twisted = ">=22.2,<24.0"
+Twisted = ">=22.2,<25.0"
 
 [tool.poetry.group.dev.dependencies]
 pytest = "^7.3.1"
