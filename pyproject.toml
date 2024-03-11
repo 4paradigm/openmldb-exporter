@@ -28,7 +28,7 @@ openmldb = "^0.8.4"
 Twisted = ">=22.2,<24.0"
 
 [tool.poetry.group.dev.dependencies]
-pytest = "^7.3.1"
+pytest = ">=7.3.1,<9.0.0"
 requests = "^2.29.0"
 pylint = "^3.0.3"
 
