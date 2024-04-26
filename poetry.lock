@@ -480,20 +480,19 @@ files = [
 
 [[package]]
 name = "openmldb"
-version = "0.8.4"
+version = "0.9.0"
 description = "OpenMLDB Python SDK"
 optional = false
 python-versions = "*"
 files = [
-    {file = "openmldb-0.8.4-py3-none-macosx_10_15_x86_64.whl", hash = "sha256:e963a054bffc3b85e0e8e14faafa65eb2ebd408271251090b20da79102c89dde"},
-    {file = "openmldb-0.8.4-py3-none-manylinux1_x86_64.whl", hash = "sha256:4885bfc6c724b68b3180171d6e0343fbdea845a8e85bf26b522e926843d93364"},
+    {file = "openmldb-0.9.0-py3-none-manylinux1_x86_64.whl", hash = "sha256:e4b8fd2f97ab810f84d65e39a44b8da51e5fb18d1587ddda0c0f91dfef7ed261"},
 ]
 
 [package.dependencies]
 importlib-metadata = "<5.0"
 IPython = "<=7.30.1"
 prettytable = "<=3.1.0"
-sqlalchemy = "<=1.4.50"
+sqlalchemy = "<=2.0.27"
 
 [package.extras]
 test = ["pytest", "tox"]
@@ -1039,4 +1038,4 @@ testing = ["coverage (>=5.0.3)", "zope.event", "zope.testing"]
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.8"
-content-hash = "3f302e639d470170adf33a54a4eea0bcffb1ee3d697bcdb1b1a2ae5892f5906b"
+content-hash = "c8c096fe2bcaf4387ee942e82f0bb98c4e16d3f9cd1fb3fcd855fc536d8159b0"
